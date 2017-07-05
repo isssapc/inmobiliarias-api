@@ -19,6 +19,11 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
+    public function get_tipos_get() {
+        $datos = $this->propiedad->get_tipos();
+        $this->response($datos);
+    }
+
     public function del_propiedad_post($id) {
         $datos = $this->propiedad->del_one($id);
         $this->response($datos);
