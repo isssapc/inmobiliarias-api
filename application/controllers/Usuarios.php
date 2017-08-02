@@ -19,9 +19,14 @@ class Usuarios extends MY_Controller {
         $this->response($datos);
     }
 
-    public function del_usuario_post($id) {
-        $datos = $this->usuario->del_one($id);
+    public function get_roles_get() {
+        $datos = $this->usuario->get_roles();
         $this->response($datos);
+    }
+
+    public function del_usuario_post($id) {
+        $count = $this->usuario->del_one($id);
+        $this->response(array("count" => $count));
     }
 
     public function del_usuarios_post() {
@@ -36,9 +41,9 @@ class Usuarios extends MY_Controller {
         $this->response($datos);
     }
 
-    public function update_usuario_post() {
+    public function update_usuario_post($id) {
         $usuario = $this->post("usuario");
-        $datos = $this->usuario->update_one($usuario);
+        $datos = $this->usuario->update_one($id, $usuario);
         $this->response($datos);
     }
 
