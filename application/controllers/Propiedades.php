@@ -41,9 +41,9 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
-    public function update_propiedad_post() {
+    public function update_propiedad_post($id) {
         $propiedad = $this->post("propiedad");
-        $datos = $this->propiedad->update_one($propiedad);
+        $datos = $this->propiedad->update_one($id,$propiedad);
         $this->response($datos);
     }
 
