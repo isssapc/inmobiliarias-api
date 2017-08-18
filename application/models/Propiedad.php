@@ -70,4 +70,37 @@ class Propiedad extends CI_Model {
         return $propiedad;
     }
 
+    public function add_imagen($id_propiedad, $descripcion, $filename, $es_portada = 0) {
+        $datos = array(
+            "id_producto" => $id_propiedad,
+            "filename" => $filename,
+            "descripcion" => $descripcion,
+            "es_portada" => $es_portada
+        );
+
+        $this->db->insert("propiedad_imagen", $datos);
+        $id = $this->db->insert_id();
+
+        $data = $this->get_imagen($id);
+        return $data;
+    }
+
+    public function get_imagen($id) {
+
+        $sql = "SELECT p.*
+                FROM propiedad_imagen p
+                WHERE p.id_propiedad_imagen= $id LIMIT 1";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function get_imagenes_propiedad($id_propiedad) {
+
+        $sql = "SELECT p.*
+                FROM propiedad_imagen p
+                WHERE p.id_propiedad= $id_propiedad LIMIT 1";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 }
