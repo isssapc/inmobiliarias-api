@@ -72,7 +72,7 @@ class Propiedad extends CI_Model {
 
     public function add_imagen($id_propiedad, $descripcion, $filename, $es_portada = 0) {
         $datos = array(
-            "id_producto" => $id_propiedad,
+            "id_propiedad" => $id_propiedad,
             "filename" => $filename,
             "descripcion" => $descripcion,
             "es_portada" => $es_portada
@@ -98,7 +98,7 @@ class Propiedad extends CI_Model {
 
         $sql = "SELECT p.*
                 FROM propiedad_imagen p
-                WHERE p.id_propiedad= $id_propiedad LIMIT 1";
+                WHERE p.id_propiedad= $id_propiedad";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
