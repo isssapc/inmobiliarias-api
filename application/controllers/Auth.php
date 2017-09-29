@@ -75,5 +75,9 @@ class Auth extends MY_Controller {
             $this->response($jws->claims['rol']);
         }
     }
+    
+    public function index_get(){
+        $this->response("Hola, como estan    ?");
+    }
 
 }
