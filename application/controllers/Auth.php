@@ -77,7 +77,7 @@ class Auth extends MY_Controller {
     }
     
     public function index_get(){
-        $this->response("Hola, como estan    ?");
+        $this->response("Hola?");
     }
 
 }
