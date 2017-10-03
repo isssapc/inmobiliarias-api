@@ -14,18 +14,23 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
+    public function con_portada_get() {
+        $datos = $this->propiedad->get_all_con_portada();
+        $this->response($datos);
+    }
+
     public function get_propiedad_get($id) {
         $propiedad = $this->propiedad->get_one($id);
         $imagenes = $this->propiedad->get_imagenes_propiedad($id);
-        $this->response(["propiedad"=>$propiedad,"imagenes"=>$imagenes]);
+        $this->response(["propiedad" => $propiedad, "imagenes" => $imagenes]);
     }
 
     public function get_tipos_get() {
         $datos = $this->propiedad->get_tipos();
         $this->response($datos);
     }
-    
-      public function get_imagenes_propiedad_get($id_propiedad) {
+
+    public function get_imagenes_propiedad_get($id_propiedad) {
         $datos = $this->propiedad->get_imagenes_propiedad($id_propiedad);
         $this->response($datos);
     }
@@ -53,6 +58,12 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
+    public function set_imagen_portada_post($id_propiedad) {
+        $id_propiedad_imagen = $this->post("id_propiedad_imagen");
+        $datos = $this->propiedad->set_imagen_portada($id_propiedad, $id_propiedad_imagen);
+        $this->response($datos);
+    }
+
     public function upload_imagen_post() {
 
         $id_propiedad = $this->post('id_propiedad');
@@ -62,7 +73,12 @@ class Propiedades extends MY_Controller {
 
 
         $path = "./upload/propiedades/" . $id_propiedad . "/";
-        $webpath = "api/upload/propiedades/" . $id_propiedad . "/";
+        
+        //asi funciona en produccion y con inmobiliaria-api afuera de la carpeta de inmobiliaria
+        $webpath = "inmobiliaria-api/upload/propiedades/" . $id_propiedad . "/";
+        
+        //asi funciona en pruebas
+        //$webpath = "http://localhost:8080/inmobiliaria-api/upload/propiedades/" . $id_propiedad . "/";
 
         if (!file_exists($path)) {
             mkdir($path, 0777, TRUE);
@@ -83,8 +99,8 @@ class Propiedades extends MY_Controller {
             $this->response(["error" => $error], REST_Controller::HTTP_BAD_REQUEST);
         } else {
             $data = $this->upload->data();
-            $filename = $webpath . $data['file_name'];
-            $imagen = $this->propiedad->add_imagen($id_propiedad, $descripcion, $filename, $es_portada);
+
+            $imagen = $this->propiedad->add_imagen($id_propiedad, $descripcion, $webpath, $data['raw_name'], $data['file_ext'], $es_portada);
 
             // ini resize ------------------------------------------------
             /*
@@ -100,7 +116,7 @@ class Propiedades extends MY_Controller {
             // fin resize ------------------------------------------------
 
 
-            $this->response(["imagen" => $imagen]);
+            $this->response(["imagen" => $imagen, "data" => $data]);
         }
     }
 

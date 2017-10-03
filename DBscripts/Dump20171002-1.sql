@@ -1,11 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `inmobiliarias` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `inmobiliarias`;
-
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: inmobiliarias
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.10-MariaDB
+-- Server version	5.5.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -190,7 +189,7 @@ CREATE TABLE `propiedad` (
   `tipo_renta` varchar(45) DEFAULT NULL,
   `fecha_creacion` date DEFAULT NULL,
   PRIMARY KEY (`id_propiedad`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +198,7 @@ CREATE TABLE `propiedad` (
 
 LOCK TABLES `propiedad` WRITE;
 /*!40000 ALTER TABLE `propiedad` DISABLE KEYS */;
-INSERT INTO `propiedad` VALUES (77,'C0001',NULL,'1',NULL,NULL,'1000000',NULL,NULL,NULL,NULL,'Edificio','Hermosa y amplia casa','Casa en venta',NULL,'200','200',NULL,'2','1',NULL,'3','1','1','1','Av. Queretaro','210',NULL,'Calle Guanajuato','29000',NULL,'Chiapas','Tuxtla Gutierrez',NULL,NULL,NULL,NULL,NULL,1,'m²','10','20','1','2001','2000','0001','Fraccionamiento La Hacienda','0','0','1','1',NULL,'1',NULL,'1',NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL,NULL,'1',NULL,'1',NULL,1,'Precio total',NULL,'2017-08-10'),(79,'D0001',NULL,'1','1',NULL,'1500000','3500',NULL,NULL,NULL,'Departamento','Amplio y bonito departamento en el primer cuadro de la ciudad.','Departamento en venta o renta',NULL,'200','200',NULL,'2',NULL,NULL,'2','4','4','1','3ra poniente norte','320','8A','3ra norte poniente','29000',NULL,'Chiapas','Tuxtla Gutierrez',NULL,NULL,NULL,NULL,NULL,1,'m²','10','20','1','1998','500','0002','Centro','1',NULL,NULL,'1',NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,'1',NULL,1,'Precio total','Precio total','2017-08-10'),(80,'R0001',NULL,'1',NULL,NULL,'5320000',NULL,NULL,NULL,NULL,'Rancho','Rancho ubicado a las afueras de San Cristobal','Racho en venta en San Cristobal',NULL,'400','1',NULL,'2','1',NULL,'5',NULL,NULL,'4','Antigua carretera a San Juan Chamula','KM 2',NULL,NULL,'28000',NULL,'Chiapas','San Cristobal de las Casas',NULL,NULL,NULL,NULL,NULL,0,'ha','100','100','1','2000','5000','0003',NULL,NULL,'1','1','1',NULL,'1','1','1',NULL,NULL,'1','1',NULL,NULL,NULL,'1','1','1',NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL,'1',NULL,'1',NULL,1,'Precio total',NULL,'2017-08-10'),(82,'C0004',NULL,NULL,NULL,'1',NULL,NULL,'800','3600','6000','Casa','Se renta casa por día o por mes, ideal para vacacionar, con vista al mar','Se renta casa para vacacionar',NULL,'500',NULL,NULL,'2',NULL,NULL,'1',NULL,NULL,'2','Malecón','20',NULL,NULL,'30507',NULL,'Chiapas','Puerto Arista',NULL,NULL,NULL,NULL,NULL,1,NULL,'25','20','2',NULL,NULL,'121212','',NULL,'1',NULL,'1',NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,'2017-08-15');
+INSERT INTO `propiedad` VALUES (77,'C0001',NULL,'1','1','0','$1,000,000','$3,000',NULL,NULL,NULL,'Casa','Hermosa y amplia casa','Casa en venta',NULL,'200','200',NULL,'2','1',NULL,'3','1','1','1','Av. Queretaro','210',NULL,'Calle Guanajuato','29000',NULL,'Chiapas','Tuxtla Gutierrez',NULL,NULL,NULL,NULL,NULL,1,'m²','10','20','2','2001','2000','0001','Fraccionamiento La Hacienda','1','1','1','0','0','1','1','1','0','1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0',1,'Precio total',NULL,'2017-08-10'),(79,'D0001',NULL,'1','1',NULL,'$1,500,000','$3,500',NULL,NULL,NULL,'Departamento','Amplio y bonito departamento en el primer cuadro de la ciudad.','Departamento en venta o renta',NULL,'200','200',NULL,'2',NULL,NULL,'2','4','4','1','3ra poniente norte','320','8A','3ra norte poniente','29000',NULL,'Chiapas','Tuxtla Gutierrez',NULL,NULL,NULL,NULL,NULL,1,'m²','10','20','1','1998','500','0002','Centro','1',NULL,NULL,'1',NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,'1',NULL,1,'Precio total','Precio total','2017-08-10'),(80,'',NULL,'1',NULL,NULL,'$5,300,000',NULL,NULL,NULL,NULL,'Rancho','Lugar increible','Aprovecha Oportunidad!!!',NULL,'','500',NULL,'2','1',NULL,'5',NULL,NULL,'1','','',NULL,NULL,'',NULL,'Chiapas','San Cristobal de las Casas',NULL,NULL,NULL,NULL,NULL,1,'ha','','','1','','','',NULL,NULL,'0','0','0',NULL,'0','0','0',NULL,NULL,'0','0',NULL,NULL,NULL,'0','0','0',NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL,'0','0',NULL,NULL,NULL,NULL,'0',NULL,'0',NULL,1,'Precio total',NULL,'2017-08-10'),(82,'C0004',NULL,NULL,NULL,'1',NULL,NULL,'$800','$3,600','$6,000','Casa','Se renta casa por día o por mes, ideal para vacacionar, con vista al mar','Se renta casa para vacacionar',NULL,'500',NULL,NULL,'2',NULL,NULL,'1',NULL,NULL,'2','Malecón','20',NULL,NULL,'30507',NULL,'Chiapas','Puerto Arista',NULL,NULL,NULL,NULL,NULL,1,NULL,'25','20','2',NULL,NULL,'121212','',NULL,'1',NULL,'1',NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,'1','1',NULL,NULL,NULL,'1','1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,'2017-08-15'),(83,NULL,NULL,'1',NULL,NULL,'$2,000,000',NULL,NULL,NULL,NULL,'Casa','Descripción del anuncio','Casa grande',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,'2017-09-28');
 /*!40000 ALTER TABLE `propiedad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,6 +224,190 @@ CREATE TABLE `propiedad_caracteristica` (
 LOCK TABLES `propiedad_caracteristica` WRITE;
 /*!40000 ALTER TABLE `propiedad_caracteristica` DISABLE KEYS */;
 /*!40000 ALTER TABLE `propiedad_caracteristica` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `propiedad_imagen`
+--
+
+DROP TABLE IF EXISTS `propiedad_imagen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `propiedad_imagen` (
+  `id_propiedad_imagen` int(11) NOT NULL AUTO_INCREMENT,
+  `id_propiedad` int(11) NOT NULL,
+  `file_path` varchar(150) NOT NULL,
+  `file_name` varchar(100) NOT NULL,
+  `timestamp` varchar(45) DEFAULT NULL,
+  `file_ext` varchar(45) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `es_portada` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_propiedad_imagen`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `propiedad_imagen`
+--
+
+LOCK TABLES `propiedad_imagen` WRITE;
+/*!40000 ALTER TABLE `propiedad_imagen` DISABLE KEYS */;
+INSERT INTO `propiedad_imagen` VALUES (33,79,'http://localhost:8080/inmobiliaria-api/upload/propiedades/79/','1','1506823702','.jpg',NULL,0),(34,77,'http://localhost:8080/inmobiliaria-api/upload/propiedades/77/','17',NULL,'.jpg',NULL,0),(35,77,'http://localhost:8080/inmobiliaria-api/upload/propiedades/77/','despiece',NULL,'.png',NULL,1),(36,77,'http://localhost:8080/inmobiliaria-api/upload/propiedades/77/','acarreados',NULL,'.jpg',NULL,0),(37,77,'http://localhost:8080/inmobiliaria-api/upload/propiedades/77/','logo-defender-glass',NULL,'.jpg',NULL,0),(38,80,'http://localhost:8080/inmobiliaria-api/upload/propiedades/80/','horizontal',NULL,'.jpg',NULL,0),(39,82,'http://localhost:8080/inmobiliaria-api/upload/propiedades/82/','IMG_0115hola','1506962985','.jpg',NULL,1),(40,83,'http://localhost:8080/inmobiliaria-api/upload/propiedades/83/','IMG_0113',NULL,'.jpg',NULL,0),(41,80,'http://localhost:8080/inmobiliaria-api/upload/propiedades/80/','IMG_0113','1506976421','.jpg',NULL,0);
+/*!40000 ALTER TABLE `propiedad_imagen` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `propietario`
+--
+
+DROP TABLE IF EXISTS `propietario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `propietario` (
+  `id_propietario` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_moral` tinyint(1) DEFAULT '0',
+  `nombre` varchar(45) DEFAULT NULL,
+  `nacionalidad_persona_fisica` varchar(45) DEFAULT NULL,
+  `lugar_nacimiento_persona_fisica` varchar(45) DEFAULT NULL,
+  `fecha_nacimiento_persona_fisica` date DEFAULT NULL,
+  `pais_nacimiento_persona_fisica` varchar(45) DEFAULT NULL,
+  `lugar_residencia_persona_fisica` varchar(45) DEFAULT NULL,
+  `domicilio_persona_fisica` varchar(100) DEFAULT NULL,
+  `cp_persona_fisica` varchar(45) DEFAULT NULL,
+  `ciudad_persona_fisica` varchar(45) DEFAULT NULL,
+  `telefono_persona_fisica` varchar(45) DEFAULT NULL,
+  `celular_persona_fisica` varchar(45) DEFAULT NULL,
+  `email_persona_fisica` varchar(45) DEFAULT NULL,
+  `identificacion_oficial_persona_fisica` varchar(45) DEFAULT NULL,
+  `num_identificacion_persona_fisica` varchar(45) DEFAULT NULL,
+  `rfc_persona_fisica` varchar(45) DEFAULT NULL,
+  `curp_persona_fisica` varchar(45) DEFAULT NULL,
+  `estado_civil_persona_fisica` tinyint(4) DEFAULT NULL,
+  `regimen_conyugal_persona_fisica` tinyint(4) DEFAULT NULL,
+  `df_calle_persona_fisica` varchar(100) DEFAULT NULL,
+  `df_num_interior_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_num_exterior_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_cp_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_localidad_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_municipio_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_estado_persona_fisica` varchar(45) DEFAULT NULL,
+  `df_colonia_persona_fisica` varchar(45) DEFAULT NULL,
+  `nacionalidad_persona_moral` varchar(45) DEFAULT NULL,
+  `fecha_constitucion_persona_moral` date DEFAULT NULL,
+  `actividad_persona_moral` varchar(45) DEFAULT NULL,
+  `telefono_persona_moral` varchar(45) DEFAULT NULL,
+  `email_persona_moral` varchar(45) DEFAULT NULL,
+  `rfc_persona_moral` varchar(45) DEFAULT NULL,
+  `apoderado_legal_persona_moral` varchar(45) DEFAULT NULL,
+  `instrumento_publico_persona_moral` varchar(45) DEFAULT NULL,
+  `poderes_representante_persona_moral` varchar(45) DEFAULT NULL,
+  `df_calle_persona_moral` varchar(100) DEFAULT NULL,
+  `df_num_interior_persona_moral` varchar(45) DEFAULT NULL,
+  `df_num_exterior_persona_moral` varchar(45) DEFAULT NULL,
+  `df_cp_persona_moral` varchar(45) DEFAULT NULL,
+  `df_localidad_persona_moral` varchar(45) DEFAULT NULL,
+  `df_municipio_persona_moral` varchar(45) DEFAULT NULL,
+  `df_estado_persona_moral` varchar(45) DEFAULT NULL,
+  `df_colonia_persona_moral` varchar(45) DEFAULT NULL,
+  `profesion_laboral` varchar(45) DEFAULT NULL,
+  `ocupacion_laboral` varchar(45) DEFAULT NULL,
+  `empresa_laboral` varchar(45) DEFAULT NULL,
+  `puesto_laboral` varchar(45) DEFAULT NULL,
+  `jefe_inmediato_laboral` varchar(45) DEFAULT NULL,
+  `giro_empresa_laboral` varchar(45) DEFAULT NULL,
+  `domicilio_empresa_laboral` varchar(100) DEFAULT NULL,
+  `cp_laboral` varchar(45) DEFAULT NULL,
+  `ciudad_laboral` varchar(45) DEFAULT NULL,
+  `telefono_laboral` varchar(45) DEFAULT NULL,
+  `nombre_conyuge` varchar(45) DEFAULT NULL,
+  `nacionalidad_conyuge` varchar(45) DEFAULT NULL,
+  `lugar_nacimiento_conyuge` varchar(45) DEFAULT NULL,
+  `fecha_nacimiento_conyuge` date DEFAULT NULL,
+  `pais_nacimiento_conyuge` varchar(45) DEFAULT NULL,
+  `lugar_residencia_conyuge` varchar(45) DEFAULT NULL,
+  `domicilio_conyuge` varchar(100) DEFAULT NULL,
+  `cp_conyuge` varchar(45) DEFAULT NULL,
+  `ciudad_conyuge` varchar(45) DEFAULT NULL,
+  `telefono_conyuge` varchar(45) DEFAULT NULL,
+  `celular_conyuge` varchar(45) DEFAULT NULL,
+  `email_conyuge` varchar(45) DEFAULT NULL,
+  `identificacion_oficial_conyuge` varchar(45) DEFAULT NULL,
+  `rfc_conyuge` varchar(45) DEFAULT NULL,
+  `curp_conyuge` varchar(45) DEFAULT NULL,
+  `df_calle_conyuge` varchar(100) DEFAULT NULL,
+  `df_num_interior_conyuge` varchar(45) DEFAULT NULL,
+  `df_num_exterior_conyuge` varchar(45) DEFAULT NULL,
+  `df_cp_conyuge` varchar(45) DEFAULT NULL,
+  `df_localidad_conyuge` varchar(45) DEFAULT NULL,
+  `df_municipio_conyuge` varchar(45) DEFAULT NULL,
+  `df_estado_conyuge` varchar(45) DEFAULT NULL,
+  `df_colonia_conyuge` varchar(45) DEFAULT NULL,
+  `nombre_apoderado` varchar(45) DEFAULT NULL,
+  `nacionalidad_apoderado` varchar(45) DEFAULT NULL,
+  `lugar_nacimiento_apoderado` varchar(45) DEFAULT NULL,
+  `fecha_nacimiento_apoderado` date DEFAULT NULL,
+  `pais_nacimiento_apoderado` varchar(45) DEFAULT NULL,
+  `lugar_residencia_apoderado` varchar(45) DEFAULT NULL,
+  `domicilio_apoderado` varchar(100) DEFAULT NULL,
+  `cp_apoderado` varchar(45) DEFAULT NULL,
+  `ciudad_apoderado` varchar(45) DEFAULT NULL,
+  `telefono_apoderado` varchar(45) DEFAULT NULL,
+  `celular_apoderado` varchar(45) DEFAULT NULL,
+  `email_apoderado` varchar(45) DEFAULT NULL,
+  `identificacion_oficial_apoderado` varchar(45) DEFAULT NULL,
+  `num_identificacion_apoderado` varchar(45) DEFAULT NULL,
+  `rfc_apoderado` varchar(45) DEFAULT NULL,
+  `curp_apoderado` varchar(45) DEFAULT NULL,
+  `alerta_activada` tinyint(1) DEFAULT '0',
+  `mensaje_alerta` varchar(200) DEFAULT NULL,
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_propietario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `propietario`
+--
+
+LOCK TABLES `propietario` WRITE;
+/*!40000 ALTER TABLE `propietario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `propietario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prospecto`
+--
+
+DROP TABLE IF EXISTS `prospecto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prospecto` (
+  `id_prospecto` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(150) NOT NULL,
+  `ocupacion` varchar(100) DEFAULT NULL,
+  `empresa` varchar(100) DEFAULT NULL,
+  `puesto` varchar(100) DEFAULT NULL,
+  `fuente_contacto` varchar(100) DEFAULT NULL,
+  `tel_oficina` varchar(45) DEFAULT NULL,
+  `tel_casa` varchar(45) DEFAULT NULL,
+  `tel_celular` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `domicilio` varchar(250) DEFAULT NULL,
+  `id_asesor` int(11) DEFAULT NULL,
+  `interes` varchar(100) DEFAULT NULL,
+  `nota` varchar(100) DEFAULT NULL,
+  `seguimiento` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_prospecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prospecto`
+--
+
+LOCK TABLES `prospecto` WRITE;
+/*!40000 ALTER TABLE `prospecto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prospecto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -360,4 +543,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-16 12:24:25
+-- Dump completed on 2017-10-02 20:43:03
