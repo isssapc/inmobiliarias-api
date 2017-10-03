@@ -1,5 +1,7 @@
 <?php
 
+require_once (APPPATH . 'libraries/Propiedad.php');
+
 class Propiedad extends CI_Model {
 
     public function __construct() {
@@ -25,6 +27,8 @@ class Propiedad extends CI_Model {
                 WHERE p.id_propiedad= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
+        //clase Propiedad definida en application/libraries
+        //return $query->custom_row_object(0, 'oPropiedad');
     }
 
     public function get_tipos() {
