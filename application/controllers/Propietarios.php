@@ -35,6 +35,7 @@ class Propietarios extends MY_Controller {
         $this->response($datos);
     }
 
+    //ok
     public function create_propietario_post() {
         $propietario = $this->post("propietario");
         $datos = $this->propietario->create_one($propietario);

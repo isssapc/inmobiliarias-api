@@ -74,11 +74,11 @@ class Propiedades extends MY_Controller {
 
         $path = "./upload/propiedades/" . $id_propiedad . "/";
         
-        //asi funciona en produccion y con inmobiliaria-api afuera de la carpeta de inmobiliaria
-        $webpath = "inmobiliaria-api/upload/propiedades/" . $id_propiedad . "/";
+        //asi funciona en produccion y con api afuera de la carpeta de inmobiliaria
+        $webpath = "api/upload/propiedades/" . $id_propiedad . "/";
         
         //asi funciona en pruebas
-        //$webpath = "http://localhost:8080/inmobiliaria-api/upload/propiedades/" . $id_propiedad . "/";
+        //$webpath = "http://localhost:8080/inmobiliaria/api/upload/propiedades/" . $id_propiedad . "/";
 
         if (!file_exists($path)) {
             mkdir($path, 0777, TRUE);

@@ -16,9 +16,9 @@ class Propietario extends CI_Model {
 
     public function get_one($id) {
 
-        $sql = "SELECT c.*
+        $sql = "SELECT p.*
                 FROM propietario p
-                WHERE c.id_propietario= $id LIMIT 1";
+                WHERE p.id_propietario= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
@@ -53,6 +53,7 @@ class Propietario extends CI_Model {
         return $query->result_array();
     }
 
+    //ok
     public function create_one($propietario) {
 
         $this->db->insert('propietario', $propietario);
