@@ -6,6 +6,7 @@ class Prospecto extends CI_Model {
         parent::__construct();
     }
 
+    //ok
     public function get_all() {
 
         $sql = "SELECT *
@@ -14,11 +15,12 @@ class Prospecto extends CI_Model {
         return $query->result_array();
     }
 
+    //ok
     public function get_one($id) {
 
-        $sql = "SELECT c.*
+        $sql = "SELECT p.*
                 FROM prospecto p
-                WHERE c.id_prospecto= $id LIMIT 1";
+                WHERE p.id_prospecto= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
@@ -26,7 +28,7 @@ class Prospecto extends CI_Model {
     public function search_by_nombre($nombre) {
         $sql = "SELECT *
                 FROM prospecto p 
-                WHERE c.nombre like '%$nombre%'";
+                WHERE p.nombre like '%$nombre%'";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -53,6 +55,7 @@ class Prospecto extends CI_Model {
         return $query->result_array();
     }
 
+    //ok
     public function create_one($prospecto) {
 
         $this->db->insert('prospecto', $prospecto);
@@ -62,6 +65,7 @@ class Prospecto extends CI_Model {
         return $prospecto;
     }
 
+    //ok
     public function update_one($id, $props) {
 
         $where = "id_prospecto = $id";

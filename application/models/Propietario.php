@@ -26,7 +26,7 @@ class Propietario extends CI_Model {
     public function search_by_nombre($nombre) {
         $sql = "SELECT *
                 FROM propietario p 
-                WHERE c.nombre like '%$nombre%'";
+                WHERE p.nombre like '%$nombre%'";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
