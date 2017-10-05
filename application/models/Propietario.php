@@ -39,6 +39,7 @@ class Propietario extends CI_Model {
                     SELECT pi.id_propiedad, max(pi.es_portada) AS es_portada
                     FROM propiedad_imagen pi group BY pi.id_propiedad) i2
                     ON i.id_propiedad=i2.id_propiedad AND i.es_portada= i2.es_portada
+                    GROUP BY i.id_propiedad
                 ) pi ON pi.id_propiedad=p.id_propiedad
                 WHERE p.id_propietario=$id_propietaio";
         $query = $this->db->query($sql);
