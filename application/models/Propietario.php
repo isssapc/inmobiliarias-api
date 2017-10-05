@@ -27,6 +27,23 @@ class Propietario extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+    
+    public function get_propiedades($id_propietaio){
+              $sql = "SELECT p.*, u.nombre AS usuario, pi.src AS img_src
+                FROM propiedad p
+                JOIN usuario u ON u.id_usuario=p.id_usuario
+                LEFT JOIN (
+                    SELECT i.id_propiedad, i.file_name, i.es_portada,CONCAT(i.file_path, i.file_name,IF(i.timestamp is null, '', i.timestamp), i.file_ext) AS src
+                    FROM propiedad_imagen i
+                    JOIN (
+                    SELECT pi.id_propiedad, max(pi.es_portada) AS es_portada
+                    FROM propiedad_imagen pi group BY pi.id_propiedad) i2
+                    ON i.id_propiedad=i2.id_propiedad AND i.es_portada= i2.es_portada
+                ) pi ON pi.id_propiedad=p.id_propiedad
+                WHERE p.id_propietario=$id_propietaio";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 
     public function get_one($id) {
 
