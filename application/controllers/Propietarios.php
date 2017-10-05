@@ -14,6 +14,11 @@ class Propietarios extends MY_Controller {
         $this->response($datos);
     }
 
+    public function get_propietarion_con_num_propiedades_get() {
+        $datos = $this->propietario->get_all_con_num_propiedades();
+        $this->response($datos);
+    }
+
     public function get_propietario_get($id) {
         $datos = $this->propietario->get_one($id);
         $this->response($datos);

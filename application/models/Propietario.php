@@ -14,6 +14,20 @@ class Propietario extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_all_con_num_propiedades() {
+
+        $sql = "SELECT 
+                p.*,
+                IF(c.num_propiedades IS NULL, 0, c.num_propiedades) AS num_propiedades
+                FROM propietario p
+                LEFT JOIN (
+                SELECT COUNT(*) AS num_propiedades, id_propietario
+                FROM propiedad
+                GROUP BY id_propietario) c ON c.id_propietario=p.id_propietario;";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
     public function get_one($id) {
 
         $sql = "SELECT p.*

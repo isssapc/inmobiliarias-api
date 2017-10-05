@@ -6,6 +6,11 @@ class Imagen extends CI_Model {
         parent::__construct();
     }
 
+    /*
+     * obtiene solo las propiedades de la imagen que nos interesa y
+     * devuelve el src concatenado
+     */
+
     public function get_one($id) {
 
         $sql = "SELECT 
@@ -18,6 +23,10 @@ class Imagen extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row_array();
     }
+
+    /*
+     * obtiene solo las propiedades de la tabla propiedad-imagen
+     */
 
     public function get_imagen($id) {
 
@@ -33,13 +42,13 @@ class Imagen extends CI_Model {
 
         $imagen = $this->get_imagen($id_imagen);
 
-        $path = "../inmobiliaria-api/upload/propiedades/" . $imagen['id_propiedad'] . "/" .
+        $path = "./upload/propiedades/" . $imagen['id_propiedad'] . "/" .
                 $imagen['file_name'] . $imagen['timestamp'] . $imagen['file_ext'];
 
         $timestamp = time();
 
 
-        $path_timestamp = "../inmobiliaria-api/upload/propiedades/" . $imagen['id_propiedad'] . "/" .
+        $path_timestamp = "./upload/propiedades/" . $imagen['id_propiedad'] . "/" .
                 $imagen['file_name'] . $timestamp . $imagen['file_ext'];
 
         $config['image_library'] = 'gd2';
@@ -56,7 +65,7 @@ class Imagen extends CI_Model {
 
 
             // borramos el archivo anterior
-            $path = realpath("./upload/propiedades/" . $imagen['id_propiedad'] . "/" . $imagen['file_name'] . $imagen['timestamp'] . $imagen['file_ext']);
+            $path = realpath($path);
             unlink($path);
 
             //actualizamos el timestamp
@@ -67,6 +76,30 @@ class Imagen extends CI_Model {
             //devolvemos la imagen con el timestamp actualizado
             return $this->get_one($id_imagen);
         }
+    }
+
+    public function del_one($id) {
+
+        //obtenemos los datos de la imagen antes de borrarla
+        $imagen = $this->get_imagen($id);
+
+        //borramos de la BD
+        $sql = "DELETE FROM propiedad_imagen WHERE id_propiedad_imagen=$id LIMIT 1";
+        $this->db->query($sql);
+        $count = $this->db->affected_rows();
+
+        //si se borró de la BD entonces borramos el archivo
+        if ($count == 1) {
+
+
+            $path = "./upload/propiedades/" . $imagen['id_propiedad'] . "/" .
+                    $imagen['file_name'] . $imagen['timestamp'] . $imagen['file_ext'];
+            $path = realpath($path);
+            unlink($path);
+        }
+
+
+        return $count;
     }
 
     /*
@@ -92,13 +125,7 @@ class Imagen extends CI_Model {
 
 
 
-      public function del_one($id) {
 
-      $sql = "DELETE FROM imagen WHERE id_imagen=$id LIMIT 1";
-      $this->db->query($sql);
-      $count = $this->db->affected_rows();
-      return $count;
-      }
 
       public function del_many($ids) {
 

@@ -111,6 +111,28 @@ class Propiedad extends CI_Model {
         return $imagen;
     }
 
+    public function set_propietario($id_propiedad, $id_propietario) {
+        $where = "id_propiedad = $id_propiedad";
+        $props = array("id_propietario" => $id_propietario);
+        $sql = $this->db->update_string('propiedad', $props, $where);
+        $this->db->query($sql);
+
+
+        $propiedad = $this->get_one($id_propiedad);
+        return array("id_propietario" => $propiedad["id_propietario"]);
+    }
+
+    public function unset_propietario($id_propiedad) {
+        $where = "id_propiedad = $id_propiedad";
+        $props = array("id_propietario" => null);
+        $sql = $this->db->update_string('propiedad', $props, $where);
+        $this->db->query($sql);
+
+
+        $propiedad = $this->get_one($id_propiedad);
+        return array("id_propietario" => $propiedad["id_propietario"]);
+    }
+
     public function add_imagen($id_propiedad, $descripcion, $file_path, $file_name, $file_ext, $es_portada = 0) {
         $datos = array(
             "id_propiedad" => $id_propiedad,

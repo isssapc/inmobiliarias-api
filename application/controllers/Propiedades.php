@@ -7,6 +7,7 @@ class Propiedades extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model("propiedad");
+        $this->load->model("propietario");
     }
 
     public function index_get() {
@@ -23,6 +24,17 @@ class Propiedades extends MY_Controller {
         $propiedad = $this->propiedad->get_one($id);
         $imagenes = $this->propiedad->get_imagenes_propiedad($id);
         $this->response(["propiedad" => $propiedad, "imagenes" => $imagenes]);
+    }
+
+    public function get_propiedad_and_propietario_get($id) {
+        $propiedad = $this->propiedad->get_one($id);
+        $imagenes = $this->propiedad->get_imagenes_propiedad($id);
+        if (isset($propiedad["id_propietario"])) {
+            $propietario = $this->propietario->get_one($propiedad["id_propietario"]);
+        } else {
+            $propietario = null;
+        }
+        $this->response(["propiedad" => $propiedad, "imagenes" => $imagenes, "propietario" => $propietario]);
     }
 
     public function get_tipos_get() {
@@ -64,6 +76,18 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
+    public function set_propietario_post($id_propiedad) {
+        $id_propietario = $this->post("id_propietario");
+        $datos = $this->propiedad->set_propietario($id_propiedad, $id_propietario);
+        $this->response($datos);
+    }
+
+    public function unset_propietario_get($id_propiedad) {
+
+        $datos = $this->propiedad->unset_propietario($id_propiedad);
+        $this->response($datos);
+    }
+
     public function upload_imagen_post() {
 
         $id_propiedad = $this->post('id_propiedad');
@@ -73,10 +97,10 @@ class Propiedades extends MY_Controller {
 
 
         $path = "./upload/propiedades/" . $id_propiedad . "/";
-        
+
         //asi funciona en produccion y con api afuera de la carpeta de inmobiliaria
         $webpath = "api/upload/propiedades/" . $id_propiedad . "/";
-        
+
         //asi funciona en pruebas
         //$webpath = "http://localhost:8080/inmobiliaria/api/upload/propiedades/" . $id_propiedad . "/";
 

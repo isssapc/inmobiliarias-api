@@ -9,10 +9,13 @@ class Imagenes extends MY_Controller {
         $this->load->model("imagen");
     }
 
-    public function get_imagen_get($id) {
-        $datos = $this->imagen->get_one($id);
-        $this->response($datos);
-    }
+    /*
+      public function get_imagen_get($id) {
+      $datos = $this->imagen->get_one($id);
+      $this->response($datos);
+      }
+     * 
+     */
 
     public function rotate_left_get($id) {
         $datos = $this->imagen->rotate($id, 90);
@@ -22,6 +25,11 @@ class Imagenes extends MY_Controller {
     public function rotate_right_get($id) {
         $datos = $this->imagen->rotate($id, 270);
         $this->response($datos);
+    }
+
+    public function del_imagen_get($id) {
+        $count = $this->imagen->del_one($id);
+        $this->response(array("count" => $count));
     }
 
     /*
