@@ -48,7 +48,7 @@ class Propietario extends CI_Model {
 
     public function get_documentos($id_propietaio) {
         $sql = "SELECT d.*
-                FROM documetno d                
+                FROM documento d                
                 WHERE d.id_propietario=$id_propietaio";
         $query = $this->db->query($sql);
         return $query->result_array();

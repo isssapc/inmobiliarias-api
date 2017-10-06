@@ -23,7 +23,7 @@ class Propietarios extends MY_Controller {
         $propietario = $this->propietario->get_one($id);
         $propiedades = $this->propietario->get_propiedades($id);
         $documentos = $this->propietario->get_documentos($id);
-        $this->response(array("propietario" => $propietario, "propiedades" => $propiedades));
+        $this->response(array("propietario" => $propietario, "propiedades" => $propiedades, "documentos" => $documentos));
     }
 
     public function get_propietario_get($id) {
