@@ -27,9 +27,9 @@ class Propietario extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-    
-    public function get_propiedades($id_propietaio){
-              $sql = "SELECT p.*, u.nombre AS usuario, pi.src AS img_src
+
+    public function get_propiedades($id_propietaio) {
+        $sql = "SELECT p.*, u.nombre AS usuario, pi.src AS img_src
                 FROM propiedad p
                 JOIN usuario u ON u.id_usuario=p.id_usuario
                 LEFT JOIN (
@@ -42,6 +42,14 @@ class Propietario extends CI_Model {
                     GROUP BY i.id_propiedad
                 ) pi ON pi.id_propiedad=p.id_propiedad
                 WHERE p.id_propietario=$id_propietaio";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function get_documentos($id_propietaio) {
+        $sql = "SELECT d.*
+                FROM documetno d                
+                WHERE d.id_propietario=$id_propietaio";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
