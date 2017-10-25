@@ -12,7 +12,9 @@ class Propiedad extends CI_Model {
 
     public function get_all() {
 
-        $sql = "SELECT p.*, u.nombre AS usuario
+        $sql = "SELECT                           
+                p.*, 
+                u.nombre AS usuario            
                 FROM propiedad p
                 JOIN usuario u ON u.id_usuario=p.id_usuario";
         $query = $this->db->query($sql);
@@ -44,7 +46,9 @@ class Propiedad extends CI_Model {
                 JOIN usuario u ON u.id_usuario=p.id_usuario
                 WHERE p.id_propiedad= $id LIMIT 1";
         $query = $this->db->query($sql);
-        return $query->row_array();
+        $row = $query->row_array();
+        //$row["en_venta"] = (bool) $row["en_venta"];
+        return $row;
         //clase Propiedad definida en application/libraries
         //return $query->custom_row_object(0, 'oPropiedad');
     }
@@ -84,12 +88,63 @@ class Propiedad extends CI_Model {
 
     public function update_one($id, $props) {
 
+        $this->escape_numeric_fields($props);
+
+
         $where = "id_propiedad = $id";
         $sql = $this->db->update_string('propiedad', $props, $where);
         $this->db->query($sql);
 
         $propiedad = $this->get_one($id);
         return $propiedad;
+    }
+
+    public function escape_numeric_fields(&$propiedad) {
+
+
+        if (isset($propiedad["num_banos"])) {
+            $propiedad["num_banos"] = empty($propiedad["num_banos"]) ? NULL : intval($propiedad["num_banos"]);
+        }
+
+        if (isset($propiedad["num_medios_banos"])) {
+            $propiedad["num_medios_banos"] = empty($propiedad["num_medios_banos"]) ? NULL : intval($propiedad["num_medios_banos"]);
+        }
+
+        if (isset($propiedad["num_habitaciones"])) {
+            $propiedad["num_habitaciones"] = empty($propiedad["num_habitaciones"]) ? NULL : intval($propiedad["num_habitaciones"]);
+        }
+
+        if (isset($propiedad["num_dormitorios"])) {
+            $propiedad["num_dormitorios"] = empty($propiedad["num_dormitorios"]) ? NULL : intval($propiedad["num_dormitorios"]);
+        }
+
+        if (isset($propiedad["num_estacionamientos"])) {
+            $propiedad["num_estacionamientos"] = empty($propiedad["num_estacionamientos"]) ? NULL : intval($propiedad["num_estacionamientos"]);
+        }
+
+        if (isset($propiedad["pisos"])) {
+            $propiedad["pisos"] = empty($propiedad["pisos"]) ? NULL : intval($propiedad["pisos"]);
+        }
+
+        if (isset($propiedad["precio_renta"]) && empty($propiedad["precio_renta"])) {
+            $propiedad["precio_renta"] = NULL;
+        }
+
+        if (isset($propiedad["precio_venta"]) && empty($propiedad["precio_venta"])) {
+            $propiedad["precio_venta"] = NULL;
+        }
+        
+          if (isset($propiedad["tarifa_diaria"]) && empty($propiedad["tarifa_diaria"])) {
+            $propiedad["tarifa_diaria"] = NULL;
+        }
+        
+          if (isset($propiedad["tarifa_semanal"]) && empty($propiedad["tarifa_semanal"])) {
+            $propiedad["tarifa_semanal"] = NULL;
+        }
+        
+          if (isset($propiedad["tarifa_mensual"]) && empty($propiedad["tarifa_mensual"])) {
+            $propiedad["tarifa_mensual"] = NULL;
+        }
     }
 
     public function set_imagen_portada($id_propiedad, $id_propiedad_imagen) {
@@ -175,6 +230,103 @@ class Propiedad extends CI_Model {
                 WHERE p.id_propiedad= $id_propiedad";
         $query = $this->db->query($sql);
         return $query->result_array();
+    }
+
+    public function filtrar($filtro) {
+
+        $WHERE = $this->makeFilter($filtro);
+
+        $sql = "SELECT p.*, u.nombre AS usuario, pi.src AS img_src
+                FROM propiedad p
+                JOIN usuario u ON u.id_usuario=p.id_usuario
+                LEFT JOIN (
+                    SELECT i.id_propiedad, i.file_name, i.es_portada,CONCAT(i.file_path, i.file_name,IF(i.timestamp is null, '', i.timestamp), i.file_ext) AS src
+                    FROM propiedad_imagen i
+                    JOIN (
+                    SELECT pi.id_propiedad, max(pi.es_portada) AS es_portada
+                    FROM propiedad_imagen pi group BY pi.id_propiedad) i2
+                    ON i.id_propiedad=i2.id_propiedad AND i.es_portada= i2.es_portada
+                    GROUP BY i.id_propiedad
+                ) pi ON pi.id_propiedad=p.id_propiedad "
+                . $WHERE;
+
+        $query = $this->db->query($sql);
+        //return $query->result_array();
+        return array("propiedades" => $query->result_array(), "filtro" => $WHERE);
+    }
+
+    private function makeFilter($filter) {
+        $filtro = "";
+
+        if (isset($filter["tipo_operacion"])) {
+
+            if ($filter["tipo_operacion"] === "venta") {
+                $filtro .= " p.en_venta=1 ";
+            }
+
+            if ($filter["tipo_operacion"] === "renta") {
+                $filtro .= " (p.en_renta=1 OR p.en_renta_temporal=1) ";
+            }
+        }
+
+        if (isset($filter["id_tipo_propiedad"])) {
+            $filtro .= " AND p.id_tipo_propiedad=" . $filter['id_tipo_propiedad'];
+        }
+
+        if (isset($filter["precio_min"]) && !empty($filter["precio_min"])) {
+
+            if ($filter["tipo_operacion"] === "venta") {
+                $filtro .= " AND p.precio_venta >= " . $filter['precio_min'];
+            }
+
+            if ($filter["tipo_operacion"] === "renta") {
+                $filtro .= " AND p.precio_renta >= " . $filter['precio_min'];
+            }
+        }
+
+        if (isset($filter["precio_max"]) && !empty($filter["precio_max"])) {
+
+            if ($filter["tipo_operacion"] === "venta") {
+                $filtro .= " AND p.precio_venta <= " . $filter['precio_max'];
+            }
+
+            if ($filter["tipo_operacion"] === "renta") {
+                $filtro .= " AND p.precio_renta <= " . $filter['precio_max'];
+            }
+        }
+
+        if (isset($filter["num_dormitorios"])) {
+            $filtro .= " AND p.num_dormitorios=" . $filter['num_dormitorios'];
+        }
+
+        if (isset($filter["num_banos"])) {
+            $filtro .= " AND p.num_banos=" . $filter['num_banos'];
+        }
+
+        if (isset($filter["m2_terreno"])) {
+            $filtro .= " AND p.m2_terreno=" . $filter['m2_terreno'];
+        }
+
+        if (isset($filter["m2_construccion"])) {
+            $filtro .= " AND p.m2_construccion=" . $filter['m2_construccion'];
+        }
+
+        if (isset($filter["zona"])) {
+            $filtro .= " AND CONCAT(p.estado, p.municipio, p.colonia) like %" . $filter['zona'] . "%;";
+        }
+
+        if (!empty($filtro)) {
+
+            if (substr($filtro, 0, 4) === " AND") {
+                $filtro = substr($filtro, 4, strlen($filtro));
+            } else {
+                //$filtro = "ramiro";
+            }
+
+            $filtro = "WHERE" . $filtro;
+        }
+
+        return $filtro;
     }
 
 }
