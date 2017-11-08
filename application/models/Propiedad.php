@@ -86,6 +86,35 @@ class Propiedad extends CI_Model {
         return $data;
     }
 
+    public function add_mensaje_seguimiento($seguimiento) {
+        $seguimiento["fecha"] = date("Y-m-d H:i:s");
+        $this->db->insert("propiedad_seguimiento", $seguimiento);
+        $id = $this->db->insert_id();
+        $data = $this->get_mensaje_seguimiento($id);
+        return $data;
+    }
+
+    public function get_mensaje_seguimiento($id) {
+
+        $sql = "SELECT s.*, u.nombre AS usuario
+                FROM propiedad_seguimiento s
+                JOIN usuario u ON u.id_usuario=s.id_usuario
+                WHERE s.id = $id LIMIT 1";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function get_seguimiento($id_propiedad) {
+
+        $sql = "SELECT s.*, u.nombre AS usuario
+                FROM propiedad_seguimiento s
+                JOIN usuario u ON u.id_usuario=s.id_usuario
+                WHERE s.id_propiedad = $id_propiedad
+                ORDER BY s.fecha DESC";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
     public function update_one($id, $props) {
 
         $this->escape_numeric_fields($props);
@@ -133,16 +162,16 @@ class Propiedad extends CI_Model {
         if (isset($propiedad["precio_venta"]) && empty($propiedad["precio_venta"])) {
             $propiedad["precio_venta"] = NULL;
         }
-        
-          if (isset($propiedad["tarifa_diaria"]) && empty($propiedad["tarifa_diaria"])) {
+
+        if (isset($propiedad["tarifa_diaria"]) && empty($propiedad["tarifa_diaria"])) {
             $propiedad["tarifa_diaria"] = NULL;
         }
-        
-          if (isset($propiedad["tarifa_semanal"]) && empty($propiedad["tarifa_semanal"])) {
+
+        if (isset($propiedad["tarifa_semanal"]) && empty($propiedad["tarifa_semanal"])) {
             $propiedad["tarifa_semanal"] = NULL;
         }
-        
-          if (isset($propiedad["tarifa_mensual"]) && empty($propiedad["tarifa_mensual"])) {
+
+        if (isset($propiedad["tarifa_mensual"]) && empty($propiedad["tarifa_mensual"])) {
             $propiedad["tarifa_mensual"] = NULL;
         }
     }

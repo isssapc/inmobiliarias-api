@@ -28,7 +28,8 @@ class Propiedades extends MY_Controller {
     public function get_propiedad_get($id) {
         $propiedad = $this->propiedad->get_one($id);
         $imagenes = $this->propiedad->get_imagenes_propiedad($id);
-        $this->response(["propiedad" => $propiedad, "imagenes" => $imagenes]);
+        $seguimiento = $this->propiedad->get_seguimiento($id);
+        $this->response(["propiedad" => $propiedad, "imagenes" => $imagenes, "seguimiento" => $seguimiento]);
     }
 
     public function get_propiedad_and_propietario_get($id) {
@@ -66,6 +67,17 @@ class Propiedades extends MY_Controller {
     public function create_propiedad_post() {
         $propiedad = $this->post("propiedad");
         $datos = $this->propiedad->create_one($propiedad);
+        $this->response($datos);
+    }
+
+    public function add_mensaje_seguimiento_post() {
+        $mensaje = $this->post("mensaje");
+        $datos = $this->propiedad->add_mensaje_seguimiento($mensaje);
+        $this->response($datos);
+    }
+
+    public function get_seguimiento_get($id_propiedad) {
+        $datos = $this->propiedad->get_seguimiento($id_propiedad);
         $this->response($datos);
     }
 

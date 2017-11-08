@@ -66,7 +66,10 @@ class Imagen extends CI_Model {
 
             // borramos el archivo anterior
             $path = realpath($path);
-            unlink($path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
 
             //actualizamos el timestamp
             $where = "id_propiedad_imagen = $id_imagen";
@@ -95,7 +98,9 @@ class Imagen extends CI_Model {
             $path = "./upload/propiedades/" . $imagen['id_propiedad'] . "/" .
                     $imagen['file_name'] . $imagen['timestamp'] . $imagen['file_ext'];
             $path = realpath($path);
-            unlink($path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
         }
 
 
