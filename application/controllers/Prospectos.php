@@ -16,7 +16,8 @@ class Prospectos extends MY_Controller {
 
     public function get_prospecto_get($id) {
         $datos = $this->prospecto->get_one($id);
-        $this->response($datos);
+        $seguimiento = $this->prospecto->get_seguimiento($id);
+        $this->response(array('prospecto' => $datos, 'seguimiento' => $seguimiento));
     }
 
     public function search_prospecto_get($nombre) {
