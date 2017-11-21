@@ -101,7 +101,7 @@ class Prospecto extends CI_Model {
         $sql = "SELECT s.*, u.nombre AS usuario
                 FROM prospecto_seguimiento s
                 JOIN usuario u ON u.id_usuario=s.id_usuario
-                WHERE s.id_propiedad = $id_prospecto
+                WHERE s.id_prospecto = $id_prospecto
                 ORDER BY s.fecha DESC";
         $query = $this->db->query($sql);
         return $query->result_array();
