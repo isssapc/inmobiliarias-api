@@ -4,6 +4,8 @@ class Prospecto extends CI_Model {
 
     public function __construct() {
         parent::__construct();
+        $timezone = "America/Mexico_City";
+        date_default_timezone_set($timezone);
     }
 
     //ok
@@ -74,6 +76,24 @@ class Prospecto extends CI_Model {
 
         $prospecto = $this->get_one($id);
         return $prospecto;
+    }
+
+    public function add_mensaje_seguimiento($seguimiento) {
+        $seguimiento["fecha"] = date("Y-m-d H:i:s");
+        $this->db->insert("prospecto_seguimiento", $seguimiento);
+        $id = $this->db->insert_id();
+        $data = $this->get_mensaje_seguimiento($id);
+        return $data;
+    }
+
+    public function get_mensaje_seguimiento($id) {
+
+        $sql = "SELECT s.*, u.nombre AS usuario
+                FROM prospecto_seguimiento s
+                JOIN usuario u ON u.id_usuario=s.id_usuario
+                WHERE s.id = $id LIMIT 1";
+        $query = $this->db->query($sql);
+        return $query->row_array();
     }
 
 }

@@ -43,7 +43,7 @@ class Prospectos extends MY_Controller {
 
     public function add_mensaje_seguimiento_post() {
         $mensaje = $this->post("mensaje");
-        $datos = $this->propiedad->add_mensaje_seguimiento($mensaje);
+        $datos = $this->prospecto->add_mensaje_seguimiento($mensaje);
         $this->response($datos);
     }
 
