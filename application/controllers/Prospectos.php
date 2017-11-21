@@ -36,6 +36,12 @@ class Prospectos extends MY_Controller {
         $this->response($datos);
     }
 
+    public function del_mensaje_seguimiento_post() {
+        $id = $this->post("id");
+        $count = $this->prospecto->del_mensaje_seguimiento($id);
+        $this->response(array('count' => $count));
+    }
+
     public function create_prospecto_post() {
         $prospecto = $this->post("prospecto");
         $datos = $this->prospecto->create_one($prospecto);
@@ -51,6 +57,12 @@ class Prospectos extends MY_Controller {
     public function update_prospecto_post($id) {
         $prospecto = $this->post("prospecto");
         $datos = $this->prospecto->update_one($id, $prospecto);
+        $this->response($datos);
+    }
+
+    public function update_mensaje_seguimiento_post($id) {
+        $mensaje = $this->post("mensaje");
+        $datos = $this->prospecto->update_mensaje_seguimiento($id, $mensaje);
         $this->response($datos);
     }
 

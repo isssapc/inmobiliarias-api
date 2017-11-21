@@ -43,6 +43,14 @@ class Prospecto extends CI_Model {
         return $count;
     }
 
+    public function del_mensaje_seguimiento($id) {
+
+        $this->db->where('id', $id);
+        $this->db->delete('prospecto_seguimiento');
+        $count = $this->db->affected_rows();
+        return $count;
+    }
+
     /*
      * 
      * TODO
@@ -76,6 +84,16 @@ class Prospecto extends CI_Model {
 
         $prospecto = $this->get_one($id);
         return $prospecto;
+    }
+
+    public function update_mensaje_seguimiento($id, $props) {
+
+        $where = "id = $id";
+        $sql = $this->db->update_string('prospecto_seguimiento', $props, $where);
+        $this->db->query($sql);
+
+        $mensaje = $this->get_mensaje_seguimiento($id);
+        return $mensaje;
     }
 
     public function add_mensaje_seguimiento($seguimiento) {

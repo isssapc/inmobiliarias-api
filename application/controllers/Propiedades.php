@@ -64,6 +64,12 @@ class Propiedades extends MY_Controller {
         $this->response($datos);
     }
 
+    public function del_mensaje_seguimiento_post() {
+        $id = $this->post("id");
+        $count = $this->propiedad->del_mensaje_seguimiento($id);
+        $this->response(array('count' => $count));
+    }
+
     public function create_propiedad_post() {
         $propiedad = $this->post("propiedad");
         $datos = $this->propiedad->create_one($propiedad);
@@ -84,6 +90,12 @@ class Propiedades extends MY_Controller {
     public function update_propiedad_post($id) {
         $propiedad = $this->post("propiedad");
         $datos = $this->propiedad->update_one($id, $propiedad);
+        $this->response($datos);
+    }
+
+    public function update_mensaje_seguimiento_post($id) {
+        $mensaje = $this->post("mensaje");
+        $datos = $this->propiedad->update_mensaje_seguimiento($id, $mensaje);
         $this->response($datos);
     }
 

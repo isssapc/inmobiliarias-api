@@ -69,6 +69,14 @@ class Propiedad extends CI_Model {
         return $query->result_array();
     }
 
+    public function del_mensaje_seguimiento($id) {
+
+        $this->db->where('id', $id);
+        $this->db->delete('propiedad_seguimiento');
+        $count = $this->db->affected_rows();
+        return $count;
+    }
+
     public function del_many($ids) {
 
         $sql = "SELECT p.*
@@ -126,6 +134,16 @@ class Propiedad extends CI_Model {
 
         $propiedad = $this->get_one($id);
         return $propiedad;
+    }
+
+    public function update_mensaje_seguimiento($id, $props) {
+
+        $where = "id = $id";
+        $sql = $this->db->update_string('propiedad_seguimiento', $props, $where);
+        $this->db->query($sql);
+
+        $mensaje = $this->get_mensaje_seguimiento($id);
+        return $mensaje;
     }
 
     public function escape_numeric_fields(&$propiedad) {
