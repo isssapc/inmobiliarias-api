@@ -54,8 +54,8 @@ class Propiedades extends MY_Controller {
     }
 
     public function del_propiedad_post($id) {
-        $datos = $this->propiedad->del_one($id);
-        $this->response($datos);
+        $count = $this->propiedad->del_one($id);
+        $this->response(array('count' => $count));
     }
 
     public function del_propiedades_post() {

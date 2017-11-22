@@ -16,7 +16,8 @@ class Propiedad extends CI_Model {
                 p.*, 
                 u.nombre AS usuario            
                 FROM propiedad p
-                JOIN usuario u ON u.id_usuario=p.id_usuario";
+                JOIN usuario u ON u.id_usuario=p.id_usuario
+                ORDER BY p.fecha_creacion DESC";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -34,7 +35,8 @@ class Propiedad extends CI_Model {
                     FROM propiedad_imagen pi group BY pi.id_propiedad) i2
                     ON i.id_propiedad=i2.id_propiedad AND i.es_portada= i2.es_portada
                     GROUP BY i.id_propiedad
-                ) pi ON pi.id_propiedad=p.id_propiedad";
+                ) pi ON pi.id_propiedad=p.id_propiedad 
+                ORDER BY p.fecha_creacion DESC";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -61,12 +63,10 @@ class Propiedad extends CI_Model {
     }
 
     public function del_one($id) {
-
-        $sql = "SELECT p.*
-                FROM propiedad p
-                WHERE p.id_propiedad= $id";
-        $query = $this->db->query($sql);
-        return $query->result_array();
+        $this->db->where('id_propiedad', $id);
+        $this->db->delete('propiedad');
+        $count = $this->db->affected_rows();
+        return $count;
     }
 
     public function del_mensaje_seguimiento($id) {
@@ -87,7 +87,8 @@ class Propiedad extends CI_Model {
     }
 
     public function create_one($propiedad) {
-        $propiedad["fecha_creacion"] = date("Y-m-d");
+        $propiedad["fecha_creacion"] = date("Y-m-d H:i:s");
+        $propiedad['clave'] = date('ymdHis');
         $this->db->insert("propiedad", $propiedad);
         $id = $this->db->insert_id();
         $data = $this->get_one($id);
