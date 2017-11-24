@@ -30,8 +30,10 @@ class Mensaje extends CI_Model {
 
     public function get_one($id) {
 
-        $sql = "SELECT m.*
+        $sql = "SELECT m.*,d.nombre AS usuario_destino,o.nombre AS usuario_origen
                 FROM mensaje m
+                JOIN usuario d ON d.id_usuario= m.id_usuario_destino
+                JOIN usuario o ON o.id_usuario= m.id_usuario_origen
                 WHERE m.id_mensaje= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
