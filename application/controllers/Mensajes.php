@@ -10,8 +10,9 @@ class Mensajes extends MY_Controller {
     }
 
     public function usuario_get($id_usuario) {
-        $datos = $this->mensaje->get_mensajes_usuario($id_usuario);
-        $this->response($datos);
+        $recibidos = $this->mensaje->get_mensajes_recibidos_usuario($id_usuario);
+        $enviados = $this->mensaje->get_mensajes_enviados_usuario($id_usuario);
+        $this->response(array('recibidos' => $recibidos, 'enviados' => $enviados));
     }
 
     public function del_mensajes_usuario_post($id_usuario) {
@@ -23,6 +24,7 @@ class Mensajes extends MY_Controller {
         $datos = $this->mensaje->get_one($id);
         $this->response($datos);
     }
+
 //    
 //    
 //    public function search_mensaje_get($nombre) {

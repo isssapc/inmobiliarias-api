@@ -8,11 +8,22 @@ class Mensaje extends CI_Model {
         date_default_timezone_set($timezone);
     }
 
-    public function get_mensajes_usuario($id_usuario) {
+    public function get_mensajes_enviados_usuario($id_usuario) {
 
-        $sql = "SELECT *
-                FROM mensaje
-                WHERE id_usuario=$id_usuario";
+        $sql = "SELECT m.*, d.nombre AS usuario_destino
+                FROM mensaje m
+                JOIN usuario d ON d.id_usuario= m.id_usuario_destino
+                WHERE m.id_usuario_origen=$id_usuario";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function get_mensajes_recibidos_usuario($id_usuario) {
+
+        $sql = "SELECT m.*, o.nombre AS usuario_origen
+                FROM mensaje m
+                JOIN usuario o ON o.id_usuario= m.id_usuario_origen
+                WHERE m.id_usuario_destino=$id_usuario";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
@@ -36,7 +47,7 @@ class Mensaje extends CI_Model {
 
     public function del_mensajes_usuario($id_usuario) {
 
-        $this->db->where('id_usuario', $id_usuario);
+        $this->db->where('id_usuario_origen', $id_usuario);
         $this->db->delete('mensaje');
         $count = $this->db->affected_rows();
         return $count;
