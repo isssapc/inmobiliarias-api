@@ -15,9 +15,14 @@ class Mensajes extends MY_Controller {
         $this->response(array('recibidos' => $recibidos, 'enviados' => $enviados));
     }
 
+    public function count_no_leidos_usuario_get($id_usuario) {
+        $count = $this->mensaje->count_no_leidos_usuario($id_usuario);
+        $this->response(array('count' => $count));
+    }
+
     public function del_mensajes_usuario_post($id_usuario) {
         $count = $this->mensaje->del_mensajes_usuario($id_usuario);
-        $this->response(array('count' => $datos));
+        $this->response(array('count' => $count));
     }
 
     public function get_mensaje_get($id) {

@@ -6,46 +6,46 @@ class Tareas extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("mensaje");
+        $this->load->model("tarea");
     }
 
     public function usuario_get($id_usuario) {
-        $recibidos = $this->mensaje->get_mensajes_recibidos_usuario($id_usuario);
-        $enviados = $this->mensaje->get_mensajes_enviados_usuario($id_usuario);
+        $recibidos = $this->tarea->get_tareas_recibidos_usuario($id_usuario);
+        $enviados = $this->tarea->get_tareas_enviados_usuario($id_usuario);
         $this->response(array('recibidos' => $recibidos, 'enviados' => $enviados));
     }
 
-    public function del_mensajes_usuario_post($id_usuario) {
-        $count = $this->mensaje->del_mensajes_usuario($id_usuario);
+    public function del_tareas_usuario_post($id_usuario) {
+        $count = $this->tarea->del_tareas_usuario($id_usuario);
         $this->response(array('count' => $datos));
     }
 
-    public function get_mensaje_get($id) {
-        $datos = $this->mensaje->get_one($id);
+    public function get_tarea_get($id) {
+        $datos = $this->tarea->get_one($id);
         $this->response($datos);
     }
 
 //    
 //    
-//    public function search_mensaje_get($nombre) {
-//        $datos = $this->mensaje->search_by_nombre($nombre);
+//    public function search_tarea_get($nombre) {
+//        $datos = $this->tarea->search_by_nombre($nombre);
 //        $this->response($datos);
 //    }
 
-    public function del_mensaje_post($id) {
-        $count = $this->mensaje->del_one($id);
+    public function del_tarea_post($id) {
+        $count = $this->tarea->del_one($id);
         $this->response(array("count" => $count));
     }
 
-    public function create_mensaje_post() {
-        $mensaje = $this->post("mensaje");
-        $datos = $this->mensaje->create_one($mensaje);
+    public function create_tarea_post() {
+        $tarea = $this->post("tarea");
+        $datos = $this->tarea->create_one($tarea);
         $this->response($datos);
     }
 
-    public function update_mensaje_post($id) {
-        $mensaje = $this->post("mensaje");
-        $datos = $this->mensaje->update_one($id, $mensaje);
+    public function update_tarea_post($id) {
+        $tarea = $this->post("tarea");
+        $datos = $this->tarea->update_one($id, $tarea);
         $this->response($datos);
     }
 

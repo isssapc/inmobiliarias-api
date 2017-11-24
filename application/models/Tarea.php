@@ -1,6 +1,6 @@
 <?php
 
-class Mensaje extends CI_Model {
+class Tarea extends CI_Model {
 
     public function __construct() {
         parent::__construct();
@@ -8,20 +8,20 @@ class Mensaje extends CI_Model {
         date_default_timezone_set($timezone);
     }
 
-    public function get_mensajes_enviados_usuario($id_usuario) {
+    public function get_tareas_enviados_usuario($id_usuario) {
 
         $sql = "SELECT m.*, d.nombre AS usuario_destino
-                FROM mensaje m
+                FROM tarea m
                 JOIN usuario d ON d.id_usuario= m.id_usuario_destino
                 WHERE m.id_usuario_origen=$id_usuario";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
-    public function get_mensajes_recibidos_usuario($id_usuario) {
+    public function get_tareas_recibidos_usuario($id_usuario) {
 
         $sql = "SELECT m.*, o.nombre AS usuario_origen
-                FROM mensaje m
+                FROM tarea m
                 JOIN usuario o ON o.id_usuario= m.id_usuario_origen
                 WHERE m.id_usuario_destino=$id_usuario";
         $query = $this->db->query($sql);
@@ -31,56 +31,49 @@ class Mensaje extends CI_Model {
     public function get_one($id) {
 
         $sql = "SELECT m.*,d.nombre AS usuario_destino,o.nombre AS usuario_origen
-                FROM mensaje m
+                FROM tarea m
                 JOIN usuario d ON d.id_usuario= m.id_usuario_destino
                 JOIN usuario o ON o.id_usuario= m.id_usuario_origen
-                WHERE m.id_mensaje= $id LIMIT 1";
+                WHERE m.id_tarea= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
     }
 
     public function del_one($id) {
 
-        $this->db->where('id_mensaje', $id);
-        $this->db->delete('mensaje');
+        $this->db->where('id_tarea', $id);
+        $this->db->delete('tarea');
         $count = $this->db->affected_rows();
         return $count;
     }
 
-    public function del_mensajes_usuario($id_usuario) {
+    public function del_tareas_usuario($id_usuario) {
 
         $this->db->where('id_usuario_origen', $id_usuario);
-        $this->db->delete('mensaje');
+        $this->db->delete('tarea');
         $count = $this->db->affected_rows();
         return $count;
     }
 
-    public function count_no_leidos_usuario($id_usuario) {
-        $sql = "SELECT COUNT(*) AS count FROM mensaje WHERE id_usuario_destino=$id_usuario";
-        $query = $this->db->query($sql);
-        $row = $query->row();
-        return $row->count;
-    }
+    public function create_one($tarea) {
 
-    public function create_one($mensaje) {
+        //$seguimiento["fecha"] = date("Y-m-d H:i:s");
 
-        $mensaje['fecha'] = date("Y-m-d H:i:s");
+        $this->db->insert('tarea', $tarea);
+        $id_tarea = $this->db->insert_id();
 
-        $this->db->insert('mensaje', $mensaje);
-        $id_mensaje = $this->db->insert_id();
-
-        $mensaje = $this->get_one($id_mensaje);
-        return $mensaje;
+        $tarea = $this->get_one($id_tarea);
+        return $tarea;
     }
 
     public function update_one($id, $props) {
 
-        $where = "id_mensaje = $id";
-        $sql = $this->db->update_string('mensaje', $props, $where);
+        $where = "id_tarea = $id";
+        $sql = $this->db->update_string('tarea', $props, $where);
         $this->db->query($sql);
 
-        $mensaje = $this->get_one($id);
-        return $mensaje;
+        $tarea = $this->get_one($id);
+        return $tarea;
     }
 
 }
