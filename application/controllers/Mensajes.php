@@ -42,6 +42,12 @@ class Mensajes extends MY_Controller {
         $this->response(array("count" => $count));
     }
 
+    public function del_mensajes_post() {
+        $ids = $this->post("ids");
+        $count = $this->mensaje->del_many($ids);
+        $this->response(array("count" => $count));
+    }
+
     public function create_mensaje_post() {
         $mensaje = $this->post("mensaje");
         $datos = $this->mensaje->create_one($mensaje);

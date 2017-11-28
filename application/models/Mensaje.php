@@ -46,6 +46,14 @@ class Mensaje extends CI_Model {
         $count = $this->db->affected_rows();
         return $count;
     }
+    
+        public function del_many($ids) {
+
+        $this->db->where_in('id_mensaje', $ids);
+        $this->db->delete('mensaje');
+        $count = $this->db->affected_rows();
+        return $count;
+    }
 
     public function del_mensajes_usuario($id_usuario) {
 
