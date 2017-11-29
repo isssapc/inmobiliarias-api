@@ -46,8 +46,8 @@ class Mensaje extends CI_Model {
         $count = $this->db->affected_rows();
         return $count;
     }
-    
-        public function del_many($ids) {
+
+    public function del_many($ids) {
 
         $this->db->where_in('id_mensaje', $ids);
         $this->db->delete('mensaje');
@@ -79,6 +79,14 @@ class Mensaje extends CI_Model {
 
         $mensaje = $this->get_one($id_mensaje);
         return $mensaje;
+    }
+
+    public function create_mensaje_bandeja($id_usuario, $id_mensaje) {
+        $datos = ['id_usuario' => $id_usuario, 'id_mensaje' => $id_mensaje];
+
+        $this->db->insert('bandeja_mensaje', $datos);
+        $count = $this->db->affected_rows();
+        return $count;
     }
 
     public function update_one($id, $props) {

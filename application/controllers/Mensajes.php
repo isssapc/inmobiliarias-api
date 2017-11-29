@@ -51,6 +51,8 @@ class Mensajes extends MY_Controller {
     public function create_mensaje_post() {
         $mensaje = $this->post("mensaje");
         $datos = $this->mensaje->create_one($mensaje);
+        $bandeja_origen=$this->mensaje->create_mensaje_bandeja($datos['id_usuario_origen'],$datos['id_mensaje']);
+        $bandeja_destino=$this->mensaje->create_mensaje_bandeja($datos['id_usuario_destino'],$datos['id_mensaje']);
         $this->response($datos);
     }
 
@@ -59,5 +61,6 @@ class Mensajes extends MY_Controller {
         $datos = $this->mensaje->update_one($id, $mensaje);
         $this->response($datos);
     }
+    
 
 }
