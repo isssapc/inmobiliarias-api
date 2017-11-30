@@ -9,10 +9,10 @@ class Tareas extends MY_Controller {
         $this->load->model("tarea");
     }
 
-    public function usuario_get($id_usuario) {
-        $recibidos = $this->tarea->get_tareas_recibidos_usuario($id_usuario);
-        $enviados = $this->tarea->get_tareas_enviados_usuario($id_usuario);
-        $this->response(array('recibidos' => $recibidos, 'enviados' => $enviados));
+    public function get_tareas_usuario_get($id_usuario) {
+        $creadas = $this->tarea->get_tareas_creadas_usuario($id_usuario);
+        $asignadas = $this->tarea->get_tareas_asignadas_usuario($id_usuario);
+        $this->response(array('creadas' => $creadas, 'asignadas' => $asignadas));
     }
 
     public function del_tareas_usuario_post($id_usuario) {
@@ -24,13 +24,6 @@ class Tareas extends MY_Controller {
         $datos = $this->tarea->get_one($id);
         $this->response($datos);
     }
-
-//    
-//    
-//    public function search_tarea_get($nombre) {
-//        $datos = $this->tarea->search_by_nombre($nombre);
-//        $this->response($datos);
-//    }
 
     public function del_tarea_post($id) {
         $count = $this->tarea->del_one($id);
