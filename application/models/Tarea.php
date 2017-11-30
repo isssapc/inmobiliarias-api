@@ -32,8 +32,8 @@ class Tarea extends CI_Model {
 
         $sql = "SELECT t.*,uc.nombre AS usuario_creador,ua.nombre AS usuario_asignado
                 FROM tarea t
-                JOIN usuario uc ON d.id_usuario= t.id_usuario_creador
-                JOIN usuario ua ON o.id_usuario= t.id_usuario_asignado
+                JOIN usuario uc ON uc.id_usuario= t.id_usuario_creador
+                JOIN usuario ua ON ua.id_usuario= t.id_usuario_asignado
                 WHERE t.id_tarea= $id LIMIT 1";
         $query = $this->db->query($sql);
         return $query->row_array();
