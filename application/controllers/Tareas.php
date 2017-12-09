@@ -42,4 +42,10 @@ class Tareas extends MY_Controller {
         $this->response($datos);
     }
 
+    public function toggle_value_get($id) {
+
+        $datos = $this->tarea->toggle_value($id);
+        $this->response($datos);
+    }
+
 }

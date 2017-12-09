@@ -76,4 +76,16 @@ class Tarea extends CI_Model {
         return $tarea;
     }
 
+    public function toggle_value($id_tarea) {
+        $tarea = $this->get_one($id_tarea);
+        $value = 0;
+        if ($tarea['completada'] == '0') {
+            $value = 1;
+        }
+
+        $updated = $this->update_one($id_tarea, array('completada' => $value));
+
+        return array('completada' => $updated['completada']);
+    }
+
 }
